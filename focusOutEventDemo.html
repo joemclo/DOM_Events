@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            section {
+                border: 1px solid #e2e2e2;
+                min-height: 200px;
+                padding: 5px 20px;
+            }
+            #container{
+                border: 1px solid red;
+                margin: 20px;
+                outline: none;
+            }
+        </style>
+    </head>
+    <body id='body'>
+        <section id='section'>
+            <h1 id='test_title'>
+                An Focusout Event attached to a box
+            </h1>
+            <div id='test_area'>
+                <div id='container' tabIndex=-1>
+                    <h2 id='title'>
+                        DIV BOX
+                    </h2>
+                    <p id='para'>
+                        Some divs within a box which can gain focus
+                    </p>
+                    <a href='#' id='link'>
+                        A link
+                    </a>
+                    <button id='button'>
+                        Button
+                    </button>
+                </div>
+            </div>
+            </div>
+            <p id='test_paragraph1'>
+                results of event placeholder
+            </p>
+            <script>
+                {
+                    const attachListeners = () => {
+                        const testArea = document.getElementById('container');
+                        const para = document.getElementById('test_paragraph1');
+
+                        testArea.addEventListener('focusout', (event) => {
+                            para.innerText = `event fired at: ${event.timeStamp}
+                            current target is: ${event.currentTarget.id}
+                            target is: ${event.target.id}
+                            related target is ${event.relatedTarget && event.relatedTarget.id}
+                            event phase is: ${event.eventPhase}
+                            event bubbles: ${event.bubbles}
+                            event is cancelable: ${event.cancelable}`;
+
+                            if(! (event.relatedTarget && (event.currentTarget.contains(event.relatedTarget) || event.currentTarget === event.relatedTarget) ) ) {
+                                para.innerText = 'outside'
+                            }
+
+                        })
+                    };
+                    window.addEventListener('DOMContentLoaded', attachListeners);
+                }
+            </script>
+        </section>
+    </body>
+</html>
