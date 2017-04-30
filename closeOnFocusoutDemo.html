@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            A box which is opened on click and closes when box loses focus
+        </title>
+        <style>
+            section {
+                border: 1px solid #e2e2e2;
+                min-height: 200px;
+                padding: 5px 20px;
+            }
+            #container{
+                border: 1px solid red;
+                margin: 20px;
+                outline: none;
+            }
+            #extraContent{
+                display: none;
+            }
+            #extraContent.showExtra{
+                display:block;
+            }
+
+
+        </style>
+    </head>
+    <body>
+        <section>
+            <h1>
+                A box which is opened on click and closes when box loses focus
+            </h1>
+            <div>
+                <div id='container' tabIndex=-1>
+                    <button id='openButton'>
+                        Open Extra Content
+                    </button>
+                    <div id='extraContent'>
+                        <p>
+                            Some divs within a box which can gain focus
+                        </p>
+                        <p>
+                            Some divs within a box which can gain focus
+                        </p>
+                        <p>
+                            Some divs within a box which can gain focus
+                        </p>
+                        <a href='#'>
+                            A Link
+                        </a>
+                        <button>
+                            A Button
+                        </button>
+                    </div>
+                </div>
+            </section>
+            <script>
+                {
+                    const SHOW_EXTRA_CLASS = 'showExtra';
+
+                    const attachListeners = () => {
+                        const container = document.getElementById('container');
+                        const extraContent = document.getElementById('extraContent');
+                        const openButton = document.getElementById('openButton');
+
+                        openButton.addEventListener('click', () => {
+                            extraContent.classList.add(SHOW_EXTRA_CLASS);
+                        })
+
+                        container.addEventListener('focusout', (event) => {
+                            if(! (event.relatedTarget && (event.currentTarget.contains(event.relatedTarget) || event.currentTarget === event.relatedTarget) ) ) {
+                                extraContent.classList.remove(SHOW_EXTRA_CLASS);
+                            }
+
+                        })
+                    };
+                    window.addEventListener('DOMContentLoaded', attachListeners);
+                }
+            </script>
+        </section>
+    </body>
+</html>
